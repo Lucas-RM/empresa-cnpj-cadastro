@@ -19,7 +19,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "https": {
+    "CadastroEmpresas.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
