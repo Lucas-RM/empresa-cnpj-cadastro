@@ -16,7 +16,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Injeção de dependências
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<EmpresaService>();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
 
 // Configurações de JWT (appsettings.json)
 builder.Services.Configure<ConfiguracoesToken>(builder.Configuration.GetSection("JwtSettings"));
@@ -48,14 +52,32 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings.Audiencia,
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+            var result = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                status = 401,
+                erro = "Acesso não autorizado. Token ausente ou inválido."
+            });
+            return context.Response.WriteAsync(result);
+        }
+    };
 });
+
+builder.Services.AddAuthorization();
 
 // CORS para permitir o frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:8080") // URL do frontend
+        policy.WithOrigins("http://localhost:4200") // URL do frontend
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -63,7 +85,36 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new() { Title = "CadastroEmpresas API", Version = "v1" });
+
+    // JWT Authentication
+    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "Digite 'Bearer' seguido do token JWT. Ex: Bearer eyJhbGciOiJIUzI1..."
+    });
+
+    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 var app = builder.Build();
 

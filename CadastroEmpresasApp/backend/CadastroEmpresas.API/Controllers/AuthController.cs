@@ -2,6 +2,7 @@
 using CadastroEmpresas.API.Services;
 using CadastroEmpresas.Domain.Entities;
 using CadastroEmpresas.Domain.Interfaces;
+using CadastroEmpresas.Domain.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroEmpresas.API.Controllers
@@ -30,6 +31,11 @@ namespace CadastroEmpresas.API.Controllers
             if (usuarioExistente != null)
             {
                 return BadRequest("Já existe um usuário com esse e-mail.");
+            }
+
+            if (!EmailUtils.Validar(usuarioCadastroDto.Email))
+            {
+                return BadRequest("E-mail inválido.");
             }
 
             var usuario = new Usuario

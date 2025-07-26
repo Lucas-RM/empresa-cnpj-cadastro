@@ -24,5 +24,7 @@ namespace CadastroEmpresas.Domain.Entities
 
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public ICollection<UsuarioEmpresa> UsuarioEmpresas { get; set; } = new List<UsuarioEmpresa>();
     }
 }
