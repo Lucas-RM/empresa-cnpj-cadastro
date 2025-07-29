@@ -2,11 +2,12 @@
   <!-- Toolbar -->
   <mat-toolbar color="primary" class="toolbar">
     <span class="toolbar-title">Sistema de Cadastro de Empresas</span>
-    <span class="spacer"></span>
+    <div class="user-actions">
     <span class="user-info">Olá, {{ getUsuarioAtual() }}</span>
     <button mat-icon-button (click)="logout()" matTooltip="Sair">
       <mat-icon>logout</mat-icon>
     </button>
+    </div>
   </mat-toolbar>
 
   <!-- Conteúdo Principal -->
@@ -71,6 +72,33 @@
             </div>
           </mat-card-content>
         </mat-card>
+      </div>
+
+      <!-- Controles de Paginação -->
+      <div class="paginacao-container" *ngIf="empresas.length > 0">
+        <div class="paginacao-controls">
+          <button
+            mat-button
+            [disabled]="!podeIrParaAnterior"
+            (click)="paginaAnterior()"
+            class="btn-paginacao">
+            <mat-icon>chevron_left</mat-icon>
+            Anterior
+          </button>
+
+          <div class="info-pagina">
+            {{ informacaoPagina }}
+          </div>
+
+          <button
+            mat-button
+            [disabled]="!podeIrParaProxima"
+            (click)="paginaProxima()"
+            class="btn-paginacao">
+            Próximo
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map, tap } from 'rxjs';
 
 import { Empresa, EmpresaListagem, RespostaListagemEmpresas } from '../models/empresa.model';
@@ -9,16 +9,29 @@ export interface CadastroEmpresaRequest {
   cnpj: string;
 }
 
+export interface PaginacaoParams {
+  pagina?: number;
+  tamanho?: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class EmpresaService {
   constructor(private http: HttpClient) {}
 
-  listarEmpresas(): Observable<EmpresaListagem[]> {
-    return this.http.get<RespostaListagemEmpresas>(API_ENDPOINTS.EMPRESA.LISTAR).pipe(
-      map(response => response.dados)
-    );
+  listarEmpresas(params?: PaginacaoParams): Observable<RespostaListagemEmpresas> {
+    let httpParams = new HttpParams();
+    
+    if (params?.pagina) {
+      httpParams = httpParams.set('pagina', params.pagina.toString());
+    }
+    
+    if (params?.tamanho) {
+      httpParams = httpParams.set('tamanho', params.tamanho.toString());
+    }
+
+    return this.http.get<RespostaListagemEmpresas>(API_ENDPOINTS.EMPRESA.LISTAR, { params: httpParams });
   }
 
   cadastrarEmpresa(empresa: CadastroEmpresaRequest): Observable<Empresa> {

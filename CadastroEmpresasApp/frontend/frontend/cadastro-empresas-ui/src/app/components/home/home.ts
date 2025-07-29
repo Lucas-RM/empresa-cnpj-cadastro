@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AuthService } from '../../services/auth';
 import { EmpresaService } from '../../services/empresa';
-import { EmpresaListagem } from '../../models/empresa.model';
+import { EmpresaListagem, RespostaListagemEmpresas } from '../../models/empresa.model';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +39,12 @@ export class HomeComponent implements OnInit {
   empresas: EmpresaListagem[] = [];
   isLoading = false;
   displayedColumns: string[] = ['nome', 'nomeFantasia', 'cnpj', 'situacao', 'abertura'];
+  
+  // Propriedades de paginação
+  paginaAtual = 1;
+  tamanhoPagina = 5;
+  totalEmpresas = 0;
+  totalPaginas = 0;
 
   constructor(
     private authService: AuthService,
@@ -55,7 +61,18 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     try {
-      this.empresas = await this.empresaService.listarEmpresas().toPromise() || [];
+      const resposta = await this.empresaService.listarEmpresas({
+        pagina: this.paginaAtual,
+        tamanho: this.tamanhoPagina
+      }).toPromise();
+      
+      if (resposta) {
+        this.empresas = resposta.dados;
+        this.totalEmpresas = resposta.total;
+        this.paginaAtual = resposta.paginaAtual;
+        this.tamanhoPagina = resposta.paginaTamanho;
+        this.totalPaginas = Math.ceil(this.totalEmpresas / this.tamanhoPagina);
+      }
     } catch (error: any) {
       let mensagem = 'Erro ao carregar empresas.';
       if (error.status === 401) {
@@ -70,6 +87,34 @@ export class HomeComponent implements OnInit {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  paginaAnterior(): void {
+    if (this.paginaAtual > 1) {
+      this.paginaAtual--;
+      this.carregarEmpresas();
+    }
+  }
+
+  paginaProxima(): void {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.paginaAtual++;
+      this.carregarEmpresas();
+    }
+  }
+
+  get podeIrParaAnterior(): boolean {
+    return this.paginaAtual > 1;
+  }
+
+  get podeIrParaProxima(): boolean {
+    return this.paginaAtual < this.totalPaginas;
+  }
+
+  get informacaoPagina(): string {
+    const inicio = (this.paginaAtual - 1) * this.tamanhoPagina + 1;
+    const fim = Math.min(this.paginaAtual * this.tamanhoPagina, this.totalEmpresas);
+    return `${inicio}-${fim} de ${this.totalEmpresas}`;
   }
 
   formatarData(data: string): string {
