@@ -90,7 +90,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
    ```
 3. Crie o arquivo `appsettings.json` em `CadastroEmpresasApp/backend/CadastroEmpresas.API/` e utilize o template `appsettings.Development.template.json` para configurar a conexão com o banco de dados e as propriedades de configuração de autenticação JWT:
 
-    - Conexaão com banco de dados:
+    - Conexão com banco de dados:
         ```json
         "ConnectionStrings": {
             "SqlServer": "<sua-string-de-conexão-aqui>"
@@ -131,8 +131,9 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
    ```bash
    dotnet ef database update
    ```
-7. Inicie o servidor backend:
+7. Inicie o servidor backend (`CadastroEmpresasApp/backend/CadastroEmpresas.API/`):
    ```bash
+   cd CadastroEmpresasApp/backend/CadastroEmpresas.API/
    dotnet run
    ```
    - O servidor será iniciado na URL `https://localhost:7113` (verifique se a porta está correta).
@@ -154,7 +155,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
    export const API_BASE_URL = 'https://localhost:7113/api';
    ```
    - Certifique-se de que a URL corresponde à do backend.
-4. Inicie o servidor de desenvolvimento:
+4. Inicie o servidor de desenvolvimento (`cadastro-empresas-ui/`):
    ```bash
    npm start
    ```
