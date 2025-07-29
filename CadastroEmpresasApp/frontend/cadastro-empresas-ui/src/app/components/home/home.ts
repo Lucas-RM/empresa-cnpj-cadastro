@@ -38,11 +38,10 @@ import { EmpresaListagem, RespostaListagemEmpresas } from '../../models/empresa.
 export class HomeComponent implements OnInit {
   empresas: EmpresaListagem[] = [];
   isLoading = false;
-  displayedColumns: string[] = ['nome', 'nomeFantasia', 'cnpj', 'situacao', 'abertura'];
-  
+
   // Propriedades de paginação
   paginaAtual = 1;
-  tamanhoPagina = 5;
+  tamanhoPagina = 6;
   totalEmpresas = 0;
   totalPaginas = 0;
 
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit {
         pagina: this.paginaAtual,
         tamanho: this.tamanhoPagina
       }).toPromise();
-      
+
       if (resposta) {
         this.empresas = resposta.dados;
         this.totalEmpresas = resposta.total;
