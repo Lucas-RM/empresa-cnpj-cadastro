@@ -33,6 +33,11 @@ namespace CadastroEmpresas.API.Services
 
                 if (jaVinculada)
                     return (false, "Você já cadastrou essa empresa.");
+
+                await _empresaRepository.VincularEmpresaAoUsuarioAsync(usuarioId, empresaExistente.Id);
+                await _empresaRepository.SalvarAsync();
+                
+                return (true, "Cadastro realizado com sucesso.");
             }
 
             // Consultar ReceitaWS
