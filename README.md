@@ -14,7 +14,7 @@ Este projeto consiste em uma aplicação fullstack para cadastro de empresas, pe
 - **ORM:** Entity Framework Core
 - **Banco de Dados:** SQL Server
 - **Autenticação:** JWT
-- **Ferramentas:** EF Core Migrations
+- **Ferramentas:** EF Core Migrations, Swagger e Postman
 
 ### Frontend
 - **Linguagem:** TypeScript
@@ -234,7 +234,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
   - **Sucesso: Código 200 (OK)**
       ```json
       {
-            "mensagem": "string"
+         "mensagem": "string"
       }
       ```
 
@@ -259,3 +259,32 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
          "dados": []
       }
       ```
+
+---
+
+## Arquivos do Postman
+
+> Os arquivos do Postman estão disponíveis em [Postman Collection](https://github.com/Lucas-RM/empresa-cnpj-cadastro/tree/main/Postman%20Collection).
+
+### Conteúdo da Pasta
+
+> A pasta "Postman Collection" contém:
+
+- **Coleções do Postman:** Arquivos `.json` que incluem todas as requisições configuradas para os endpoints da API.
+    
+- **Documentação de Requisições:** Parâmetros, corpos de requisição e exemplos de respostas para facilitar o teste e a validação da API.
+    
+
+### Como Usar
+
+1. Baixe os arquivos da pasta "Postman Collection".
+    
+2. Importe os arquivos no Postman:
+    
+    - Abra o Postman.
+        
+    - Clique em "Import" no canto superior esquerdo.
+        
+    - Selecione o arquivo `.json` baixado.
+        
+3. Utilize as requisições configuradas para testar a API com facilidade.
