@@ -135,7 +135,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
    ```bash
    dotnet run
    ```
-   O servidor será iniciado na URL `https://localhost:7113` (verifique se a porta está correta).
+   - O servidor será iniciado na URL `https://localhost:7113` (verifique se a porta está correta).
 
 ---
 
@@ -153,12 +153,12 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
    ```typescript
    export const API_BASE_URL = 'https://localhost:7113/api';
    ```
-   Certifique-se de que a URL corresponde à do backend.
+   - Certifique-se de que a URL corresponde à do backend.
 4. Inicie o servidor de desenvolvimento:
    ```bash
    npm start
    ```
-   O frontend será iniciado na URL padrão `http://localhost:4200` (verifique se a porta está correta).
+   - O frontend será iniciado na URL padrão `http://localhost:4200` (verifique se a porta está correta).
 
 ---
 
