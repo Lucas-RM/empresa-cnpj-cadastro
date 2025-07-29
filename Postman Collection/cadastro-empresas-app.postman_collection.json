@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "b7781fb6-5b7d-4354-b390-5860bbdcc3c6",
+		"name": "cadastro-empresas-app",
+		"description": "Este projeto consiste em uma aplicação fullstack para cadastro de empresas, permitindo a consulta de dados via CNPJ, autenticação de usuários e gerenciamento de empresas. O sistema é dividido em backend (API REST em C#) e frontend (Angular), proporcionando uma interface amigável e segura para o usuário.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20111730"
+	},
+	"item": [
+		{
+			"name": "api/auth/registrar",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Lucas Teste\",\r\n    \"email\": \"lucasteste@gmail.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/auth/registrar",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"registrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/auth/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user@example.com\",\r\n    \"senha\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/auth/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/empresa/cadastrar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjdjYTQxOTE1LTczODItNDU0Ny1iOTQyLTVmNzIyODJkYmU3MSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJUZXN0ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE3NTM4MTUwOTAsImlzcyI6IkNhZGFzdHJvRW1wcmVzYXMuQVBJIiwiYXVkIjoiQ2FkYXN0cm9FbXByZXNhcy5VSSJ9.-I6Qr3aEo7ftRunWElGDoff277VLH-z1Jh6Z51mffBQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cnpj\": \"14.668.485/0001-09\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/empresa/cadastrar",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"empresa",
+						"cadastrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/empresa/listar?pagina=1&tamanho=10",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjdjYTQxOTE1LTczODItNDU0Ny1iOTQyLTVmNzIyODJkYmU3MSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJUZXN0ZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE3NTM4MTUwOTAsImlzcyI6IkNhZGFzdHJvRW1wcmVzYXMuQVBJIiwiYXVkIjoiQ2FkYXN0cm9FbXByZXNhcy5VSSJ9.-I6Qr3aEo7ftRunWElGDoff277VLH-z1Jh6Z51mffBQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/empresa/listar?pagina=1&tamanho=10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"empresa",
+						"listar"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "tamanho",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://localhost:7113",
+			"type": "default"
+		}
+	]
+}
