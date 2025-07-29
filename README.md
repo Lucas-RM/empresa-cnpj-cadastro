@@ -9,6 +9,7 @@ Este projeto consiste em uma aplicação fullstack para cadastro de empresas, pe
 ## Stack Tecnológica
 
 ### Backend
+
 - **Linguagem:** C#
 - **Framework:** .NET 7+
 - **ORM:** Entity Framework Core
@@ -17,6 +18,7 @@ Este projeto consiste em uma aplicação fullstack para cadastro de empresas, pe
 - **Ferramentas:** EF Core Migrations, Swagger e Postman
 
 ### Frontend
+
 - **Linguagem:** TypeScript
 - **Framework:** Angular 20+
 - **Gerenciador de Pacotes:** npm
@@ -25,7 +27,7 @@ Este projeto consiste em uma aplicação fullstack para cadastro de empresas, pe
 
 ## Estrutura do Projeto
 
-```
+```plaintext
 empresa-cnpj-cadastro/
 │
 ├── CadastroEmpresasApp/
@@ -80,16 +82,21 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 ### Backend (C# - API REST)
 
 1. Navegue até a pasta do backend:
+
    ```bash
    cd CadastroEmpresasApp/backend
    ```
+
 2. Restaure as dependências do projeto:
+
    ```bash
    dotnet restore
    ```
+
 3. Crie o arquivo `appsettings.json` em `CadastroEmpresasApp/backend/CadastroEmpresas.API/` e utilize o template `appsettings.Development.template.json` para configurar a conexão com o banco de dados e as propriedades de configuração de autenticação JWT:
 
     - Conexão com banco de dados:
+
         ```json
         "ConnectionStrings": {
             "SqlServer": "<sua-string-de-conexão-aqui>"
@@ -97,6 +104,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
         ```
 
     - Propriedades de configuração de autenticação JWT:
+
         ```json
          "JwtSettings": {
             "ChaveSecreta": "INSIRA_SUA_CHAVE_AQUI_COM_32+_CARACTERES",
@@ -105,7 +113,9 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
             "ExpiracaoEmMinutos": 60
         },
         ```
+
 4. Em `Program.cs`, configure o banco de dados e a autenticação JWT:
+
     ```csharp
     // Conexão com o banco de dados
     builder.Services.AddDbContext<DbContexto>(options =>
@@ -118,23 +128,32 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 
     var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<ConfiguracoesToken>();
     ```
+
     - Verifique se o nome da string de conexão é o mesmo que está em `appsettings.json` ("DefaultConnection" ou "SqlServer"). E também verifique para a Autenticação ("JwtSettings").
+
 5. Configure a URL da Política CORS em `Program.cs` para a URL do frontend:
+
    ```csharp
    policy.WithOrigins("http://localhost:4200") // URL do frontend
          .AllowAnyHeader()
          .AllowAnyMethod();
    ```
-   - Verifique se a URL http://localhost:4200 é a mesma do frontend.
+
+   - Verifique se a URL `http://localhost:4200` é a mesma do frontend.
+
 6. Execute as migrações para criar o banco de dados:
+
    ```bash
    dotnet ef database update
    ```
+
 7. Inicie o servidor backend (`CadastroEmpresasApp/backend/CadastroEmpresas.API/`):
+
    ```bash
    cd CadastroEmpresasApp/backend/CadastroEmpresas.API/
    dotnet run
    ```
+
    - O servidor será iniciado na URL `https://localhost:7113` (verifique se a porta está correta).
 
 ---
@@ -142,22 +161,31 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 ### Frontend (Angular)
 
 1. Navegue até a pasta do frontend:
+
    ```bash
    cd CadastroEmpresasApp/frontend/cadastro-empresas-ui/
    ```
+
 2. Instale as dependências do projeto:
+
    ```bash
    npm install
    ```
+
 3. Verifique no arquivo `src/app/constants/api.constants.ts` se a constante `API_BASE_URL` aponta para a URL do backend, por exemplo:
+
    ```typescript
    export const API_BASE_URL = 'https://localhost:7113/api';
    ```
+
    - Certifique-se de que a URL corresponde à do backend.
+
 4. Inicie o servidor de desenvolvimento (`cadastro-empresas-ui/`):
+
    ```bash
    npm start
    ```
+
    - O frontend será iniciado na URL padrão `http://localhost:4200` (verifique se a porta está correta).
 
 ---
@@ -171,14 +199,17 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 - **URL:** `api/auth/login`
 - **Método:** `POST`
 - **Corpo da Requisição (Body > raw (json)):**
+
    ```json
    {
       "email": "string",
       "senha": "string"
    }
    ```
+
 - **Resposta:**
   - **Sucesso: Código 200 (OK)**
+
       ```json
       {
          "token": "string",
@@ -196,6 +227,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 - **URL:** `api/auth/registrar`
 - **Método:** `POST`
 - **Corpo da Requisição (Body > raw (json)):**
+
    ```json
    {
       "nome": "string",
@@ -203,8 +235,10 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
       "senha": "string"
    }
    ```
+
 - **Resposta:**
   - **Sucesso: Código 200 (OK)**
+
       ```json
       {
          "token": "string",
@@ -225,13 +259,16 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
   - **Accept:** `application/json`
   - **Authorization**: `Bearer <token>`
 - **Corpo da Requisição (Body > raw (json)):**
+
    ```json
    {
       "cnpj": "string"
    }
    ```
+
 - **Resposta:**
   - **Sucesso: Código 200 (OK)**
+
       ```json
       {
          "mensagem": "string"
@@ -251,6 +288,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
   - **Authorization**: `Bearer <token>`
 - **Resposta:**
   - **Sucesso: Código 200 (OK)**
+
       ```json
       {
          "total": "int",
@@ -271,20 +309,19 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 > A pasta "Postman Collection" contém:
 
 - **Coleções do Postman:** Arquivos `.json` que incluem todas as requisições configuradas para os endpoints da API.
-    
+
 - **Documentação de Requisições:** Parâmetros, corpos de requisição e exemplos de respostas para facilitar o teste e a validação da API.
-    
 
 ### Como Usar
 
 1. Baixe os arquivos da pasta "Postman Collection".
-    
+
 2. Importe os arquivos no Postman:
-    
+
     - Abra o Postman.
-        
+
     - Clique em "Import" no canto superior esquerdo.
-        
+
     - Selecione o arquivo `.json` baixado.
-        
+
 3. Utilize as requisições configuradas para testar a API com facilidade.
