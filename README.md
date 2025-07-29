@@ -119,7 +119,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 
     var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<ConfiguracoesToken>();
     ```
-    - Verifique se o nome da string de conexão é o mesmo que está em `appsettings.json` ("DefaultConnection" ou "SqlServer").
+    - Verifique se o nome da string de conexão é o mesmo que está em `appsettings.json` ("DefaultConnection" ou "SqlServer"). E também verifique para a Autenticação ("JwtSettings").
 5. Configure a URL da Política CORS em `Program.cs` para a URL do frontend:
    ```csharp
    policy.WithOrigins("http://localhost:4200") // URL do frontend
