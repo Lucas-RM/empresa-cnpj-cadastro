@@ -220,7 +220,10 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 **Descrição:** Cadastra uma nova empresa
 
 - **URL:** `api/empresa/cadastrar`
-- **Método:** POST
+- **Método:** `POST`
+- **Headers:**
+  - **Accept:** `application/json`
+  - **Authorization**: `Bearer <token>`
 - **Corpo da Requisição (Body > raw (json)):**
    ```json
    {
@@ -241,8 +244,11 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 
 **Descrição:** Lista as empresas cadastradas
 
-- **URL:** `api/empresa/listar`
-- **Método:** GET
+- **URL:** `api/empresa/listar?pagina=1&tamanho=10`
+- **Método:** `GET`
+- **Headers:**
+  - **Accept:** `application/json`
+  - **Authorization**: `Bearer <token>`
 - **Resposta:**
   - **Sucesso: Código 200 (OK)**
       ```json
