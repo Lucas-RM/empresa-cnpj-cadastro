@@ -10,11 +10,21 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Conexão com o banco de dados
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(7113, listenOptions =>
+    {
+        listenOptions.UseHttps(); // HTTPS
+    });
+
+    options.ListenLocalhost(5156); // HTTP
+});
+
+// Conexï¿½o com o banco de dados
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
-// Injeção de dependências
+// Injeï¿½ï¿½o de dependï¿½ncias
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 builder.Services.AddScoped<TokenService>();
@@ -22,17 +32,17 @@ builder.Services.AddScoped<EmpresaService>();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
-// Configurações de JWT (appsettings.json)
+// Configuraï¿½ï¿½es de JWT (appsettings.json)
 builder.Services.Configure<ConfiguracoesToken>(builder.Configuration.GetSection("JwtSettings"));
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<ConfiguracoesToken>();
 
 if (string.IsNullOrEmpty(jwtSettings?.ChaveSecreta))
-    throw new Exception("ChaveSecreta do JWT não foi configurada corretamente.");
+    throw new Exception("ChaveSecreta do JWT nï¿½o foi configurada corretamente.");
 
 var key = Encoding.UTF8.GetBytes(jwtSettings.ChaveSecreta);
 
-// Configuração da autenticação JWT
+// Configuraï¿½ï¿½o da autenticaï¿½ï¿½o JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,7 +73,7 @@ builder.Services.AddAuthentication(options =>
             var result = System.Text.Json.JsonSerializer.Serialize(new
             {
                 status = 401,
-                erro = "Acesso não autorizado. Token ausente ou inválido."
+                erro = "Acesso nï¿½o autorizado. Token ausente ou invï¿½lido."
             });
             return context.Response.WriteAsync(result);
         }

@@ -47,7 +47,16 @@ namespace CadastroEmpresas.API.Controllers
 
             await _usuarioRepositorio.AddAsync(usuario);
 
-            return Ok("Usuário registrado com sucesso.");
+            var token = _tokenService.GerarToken(usuario);
+
+            var resposta = new RespostaAutenticacaoDto
+            {
+                Token = token,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+
+            return Ok(resposta);
         }
 
         // POST: api/auth/login

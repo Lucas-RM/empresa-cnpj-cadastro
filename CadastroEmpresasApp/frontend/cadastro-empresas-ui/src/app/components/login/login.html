@@ -1,0 +1,89 @@
+<div class="login-container">
+  <div class="login-card">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          {{ modoCadastro ? 'Cadastro de Usuário' : 'Login' }}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <!-- Formulário de Login -->
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!modoCadastro">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Digite seu email">
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required') || loginForm.get('email')?.hasError('emailInvalido')">
+              {{ getEmailError(loginForm) }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="mostrarSenha ? 'text' : 'password'" formControlName="senha" placeholder="Digite sua senha">
+            <button mat-icon-button matSuffix type="button" (click)="toggleMostrarSenha()">
+              <mat-icon>{{ mostrarSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('senha')?.hasError('required')">
+              {{ getSenhaError(loginForm) }}
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loginForm.invalid || isLoading">
+            <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+            <span *ngIf="!isLoading">Entrar</span>
+          </button>
+        </form>
+
+        <!-- Formulário de Cadastro -->
+        <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" *ngIf="modoCadastro">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome" placeholder="Digite seu nome completo">
+            <mat-error *ngIf="cadastroForm.get('nome')?.hasError('required') || cadastroForm.get('nome')?.hasError('minlength')">
+              {{ getNomeCadastroError() }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Digite seu email">
+            <mat-error *ngIf="cadastroForm.get('email')?.hasError('required') || cadastroForm.get('email')?.hasError('email') || cadastroForm.get('email')?.hasError('emailInvalido')">
+              {{ getEmailError(cadastroForm) }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="mostrarSenhaCadastro ? 'text' : 'password'" formControlName="senha" placeholder="Digite sua senha">
+            <button mat-icon-button matSuffix type="button" (click)="toggleMostrarSenhaCadastro()">
+              <mat-icon>{{ mostrarSenhaCadastro ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="cadastroForm.get('senha')?.hasError('required') || cadastroForm.get('senha')?.hasError('minlength')">
+              {{ getSenhaCadastroError() }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirmar Senha</mat-label>
+            <input matInput type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha">
+            <mat-error *ngIf="cadastroForm.get('confirmarSenha')?.hasError('required') || cadastroForm.hasError('senhasDiferentes')">
+              {{ getConfirmarSenhaError() }}
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="cadastroForm.invalid || isLoading">
+            <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+            <span *ngIf="!isLoading">Cadastrar</span>
+          </button>
+        </form>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="accent" (click)="alternarModo()" class="full-width">
+          {{ modoCadastro ? 'Já tem uma conta? Faça login' : 'Não tem uma conta? Cadastre-se' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

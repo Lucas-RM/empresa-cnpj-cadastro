@@ -1,0 +1,77 @@
+<div class="home-container">
+  <!-- Toolbar -->
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="toolbar-title">Sistema de Cadastro de Empresas</span>
+    <span class="spacer"></span>
+    <span class="user-info">Olá, {{ getUsuarioAtual() }}</span>
+    <button mat-icon-button (click)="logout()" matTooltip="Sair">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <!-- Conteúdo Principal -->
+  <div class="content">
+    <div class="header-actions">
+      <h1>Empresas Cadastradas</h1>
+      <button mat-raised-button color="primary" (click)="navegarParaCadastro()">
+        <mat-icon>add</mat-icon>
+        Nova Empresa
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-container" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Carregando empresas...</p>
+    </div>
+
+    <!-- Lista de Empresas -->
+    <div class="empresas-container" *ngIf="!isLoading">
+      <mat-card *ngIf="empresas.length === 0" class="empty-state">
+        <mat-card-content>
+          <div class="empty-content">
+            <mat-icon class="empty-icon">business</mat-icon>
+            <h3>Nenhuma empresa cadastrada</h3>
+            <p>Comece cadastrando sua primeira empresa.</p>
+            <button mat-raised-button color="primary" (click)="navegarParaCadastro()">
+              <mat-icon>add</mat-icon>
+              Cadastrar Empresa
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="empresas-grid" *ngIf="empresas.length > 0">
+        <mat-card *ngFor="let empresa of empresas" class="empresa-card">
+          <mat-card-header>
+            <mat-card-title>{{ empresa.nome }}</mat-card-title>
+            <mat-card-subtitle>{{ empresa.nomeFantasia }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="empresa-info">
+              <div class="info-item">
+                <strong>CNPJ:</strong> {{ empresa.cnpj }}
+              </div>
+              <div class="info-item">
+                <strong>Situação:</strong> {{ empresa.situacao }}
+              </div>
+              <div class="info-item">
+                <strong>Data de Abertura:</strong> {{ formatarData(empresa.abertura) }}
+              </div>
+              <div class="info-item">
+                <strong>Atividade Principal:</strong> {{ empresa.atividadePrincipal }}
+              </div>
+              <div class="info-item">
+                <strong>Endereço:</strong> {{ empresa.logradouro }}, {{ empresa.numero }} - {{ empresa.municipio }}/{{ empresa.uf }}
+              </div>
+              <div class="info-item">
+                <strong>CEP:</strong> {{ empresa.cep }}
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
