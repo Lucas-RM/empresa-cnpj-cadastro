@@ -143,7 +143,7 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 
 1. Navegue até a pasta do frontend:
    ```bash
-   cd CadastroEmpresasApp/frontend/frontend/cadastro-empresas-ui/
+   cd CadastroEmpresasApp/frontend/cadastro-empresas-ui/
    ```
 2. Instale as dependências do projeto:
    ```bash
