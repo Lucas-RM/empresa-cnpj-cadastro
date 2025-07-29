@@ -40,14 +40,13 @@ empresa-cnpj-cadastro/
 │   │   ├── CadastroEmpresas.Domain/      # Entidades de domínio e interfaces
 │   │   └── CadastroEmpresas.Infrastructure/ # Infraestrutura, contexto e migrations
 │   └── frontend/
-│       └── frontend/
-│           └── cadastro-empresas-ui/     # Projeto Angular
-│               ├── src/app/
-│               │   ├── components/       # Componentes de UI
-│               │   ├── constants/        # Constantes globais
-│               │   ├── models/           # Modelos de dados
-│               │   └── services/         # Serviços de comunicação
-│               └── ...
+│       └── cadastro-empresas-ui/     # Projeto Angular
+│           ├── src/app/
+│           │   ├── components/       # Componentes de UI
+│           │   ├── constants/        # Constantes globais
+│           │   ├── models/           # Modelos de dados
+│           │   └── services/         # Serviços de comunicação
+│           └── ...
 └── README.md
 ```
 
