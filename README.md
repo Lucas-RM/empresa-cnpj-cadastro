@@ -164,12 +164,92 @@ git clone https://github.com/Lucas-RM/empresa-cnpj-cadastro
 
 ## Documentação dos Endpoints da API REST
 
-### Autenticação
-- **Login:** `POST /api/auth/login`
-- **Cadastrar:** `POST /api/auth/registrar`
+### Fazer Login
 
-### Empresa
-- **Listar Empresas:** `GET /api/empresa/listar`
-- **Cadastrar Empresa:** `POST /api/empresa/cadastrar`
+**Descrição:** Gera um token de autenticação e realiza o login na aplicação.
+
+- **URL:** `api/auth/login`
+- **Método:** `POST`
+- **Corpo da Requisição (Body > raw (json)):**
+   ```json
+   {
+      "email": "string",
+      "senha": "string"
+   }
+   ```
+- **Resposta:**
+  - **Sucesso: Código 200 (OK)**
+      ```json
+      {
+         "token": "string",
+         "nome": "string",
+         "email": "string"
+      }
+      ```
 
 ---
+
+### Cadastrar Usuário
+
+**Descrição:** Gera um token de autenticação e realiza o cadastro do usuário na aplicação.
+
+- **URL:** `api/auth/registrar`
+- **Método:** `POST`
+- **Corpo da Requisição (Body > raw (json)):**
+   ```json
+   {
+      "nome": "string",
+      "email": "string",
+      "senha": "string"
+   }
+   ```
+- **Resposta:**
+  - **Sucesso: Código 200 (OK)**
+      ```json
+      {
+         "token": "string",
+         "nome": "string",
+         "email": "string"
+      }
+      ```
+
+---
+
+### Cadastrar Empresa
+
+**Descrição:** Cadastra uma nova empresa
+
+- **URL:** `api/empresa/cadastrar`
+- **Método:** POST
+- **Corpo da Requisição (Body > raw (json)):**
+   ```json
+   {
+      "cnpj": "string"
+   }
+   ```
+- **Resposta:**
+  - **Sucesso: Código 200 (OK)**
+      ```json
+      {
+            "mensagem": "string"
+      }
+      ```
+
+---
+
+### Listar Empresas
+
+**Descrição:** Lista as empresas cadastradas
+
+- **URL:** `api/empresa/listar`
+- **Método:** GET
+- **Resposta:**
+  - **Sucesso: Código 200 (OK)**
+      ```json
+      {
+         "total": "int",
+         "paginaAtual": "int",
+         "paginaTamanho": "int",
+         "dados": []
+      }
+      ```
